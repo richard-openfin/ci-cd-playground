@@ -1,4 +1,4 @@
-name: Push
+name: Branch check example
 on: workflow_dispatch
 jobs:
   check-branch:
