@@ -13,3 +13,5 @@ jobs:
           node-version: '16'
       - name: Check if triggered from a correct branch
         run: echo ${{ github.ref_name }}
+      - name: Log trigger event type
+        run: echo ${{ github.event_name }}
