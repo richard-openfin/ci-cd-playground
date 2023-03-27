@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Check if triggered from a correct branch
+      - name: Log branch name
         run: echo ${{ github.ref_name }}
-      - name: Log trigger event type
+      - name: Log trigger event name
         run: echo ${{ github.event_name }}
