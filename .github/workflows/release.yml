@@ -1,0 +1,14 @@
+name: Release
+on:
+  release:
+    types: [released]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Check if triggered from a correct branch
+        run: echo {{ github.ref_name }}
