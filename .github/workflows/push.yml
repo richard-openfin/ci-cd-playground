@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check
-        if: github.ref_name === 'main'
+        if: github.ref_name == 'main'
         run: exit 1
   
   dependent-job:
