@@ -1,15 +1,17 @@
 name: Push
-on: push
+on: workflow_dispatch
 jobs:
-  check-correct-branch:
-    name: Branch Check
+  check-branch:
+    name: Check Branch
     runs-on: ubuntu-latest
     steps:
-      - name: Check
+      - name: Terminate if branch is 'main'
         if: github.ref_name == 'main'
-        run: exit 1
-      - name: Step should not execute
-        run: echo "This shouldn't have been executed if the exit code is not 0"
+        run: |
+          echo "Could not trigger on 'main' branch"
+          exit 1
+      - name: Print branch name
+        run: echo "Workflow triggered on ${{ github.ref_name }}"
   
   dependent-job:
     runs-on: ubuntu-latest
