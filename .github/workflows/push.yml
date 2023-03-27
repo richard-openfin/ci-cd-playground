@@ -2,13 +2,17 @@ name: Push
 on: push
 jobs:
   check-correct-branch:
+    name: Branch Check
     runs-on: ubuntu-latest
     steps:
       - name: Check
         if: github.ref_name == 'main'
         run: exit 1
+      - name: Step should not execute
+        run: echo "This shouldn't have been executed if the exit code is not 0"
   
   dependent-job:
     runs-on: ubuntu-latest
+    needs: check-correct-branch
     steps:
       - run: echo "Success!"
