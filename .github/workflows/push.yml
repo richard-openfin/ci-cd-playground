@@ -1,0 +1,14 @@
+name: Push
+on: push
+jobs:
+  check-correct-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check
+        if: github.ref_name === 'main'
+        run: exit 1
+  
+  dependent-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Success!"
