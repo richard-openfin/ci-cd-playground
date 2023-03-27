@@ -1,5 +1,6 @@
 name: Release
 on:
+  push:
   release:
     types: [released]
 jobs:
@@ -11,4 +12,4 @@ jobs:
         with:
           node-version: '16'
       - name: Check if triggered from a correct branch
-        run: echo {{ github.ref_name }}
+        run: echo ${{ github.ref_name }}
