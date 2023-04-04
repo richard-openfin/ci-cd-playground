@@ -18,17 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Get Branch Name From Label
-        run: |
-          for label in ${{ toJson(github.event.pull_request.labels.*.name) }}; do
-            if [[ "$label" == "elliott/"* ]]; then
-              echo "::set-output name=label::$label"
-              break
-            fi
-          done
-        id: get_branch_name
       - name: Cherry pick commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
-          branch: ${{ steps.get_branch_name.outputs.label }}
+          branch: github.event.pull_request.labels.*.name
 
