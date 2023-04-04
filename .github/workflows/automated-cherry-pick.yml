@@ -6,15 +6,15 @@ on:
       - main
     types: ['closed']
 
+env:
+    IS_PR_MERGED: github.event_name == 'pull_request' && github.event.pull_request.merged
+    IS_PR_LABELED_RELEASE: startsWith(github.event.pull_request.labels.*.name, 'release/')
+
 jobs:
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    IS_PR_MERGED:
-      - github.event_name == 'pull_request' && github.event.pull_request.merged
-    IS_PR_LABELED_RELEASE:
-      - startsWith(github.event.pull_request.labels.*.name, 'release/')
-    if: ${{ IS_PR_MERGED && IS_PR_LABELED_RELEASE }}
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.labels.*.name, 'release/')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
