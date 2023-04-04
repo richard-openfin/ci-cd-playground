@@ -8,17 +8,17 @@ on:
 
 env:
     IS_PR_MERGED: github.event_name == 'pull_request' && github.event.pull_request.merged
-    IS_PR_LABELED_RELEASE: startsWith(github.event.pull_request.labels.*.name, 'release/')
+    IS_PR_LABELED_ELLIOTT: startsWith(github.event.pull_request.labels.*.name, 'elliott/')
 
 jobs:
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.labels.*.name, 'release/')
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.labels.*.name, 'elliott/')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Cherry pick commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
-          - branch: github.event.pull_request.labels.*.name
+          - branch: startsWith(github.event.pull_request.labels.*.name, 'elliott/')
