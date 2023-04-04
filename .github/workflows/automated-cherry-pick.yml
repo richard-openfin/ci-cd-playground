@@ -10,9 +10,10 @@ jobs:
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    env:
-      IS_PR_MERGED: github.event_name == 'pull_request' && github.event.pull_request.merged
-      IS_PR_LABELED_RELEASE: startsWith(github.event.pull_request.labels.*.name, 'release/')
+    IS_PR_MERGED:
+      - github.event_name == 'pull_request' && github.event.pull_request.merged
+    IS_PR_LABELED_RELEASE:
+      - startsWith(github.event.pull_request.labels.*.name, 'release/')
     if: ${{ IS_PR_MERGED && IS_PR_LABELED_RELEASE }}
     steps:
       - name: Checkout
