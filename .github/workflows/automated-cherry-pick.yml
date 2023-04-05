@@ -15,8 +15,7 @@ jobs:
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    #&& startsWith(github.event.pull_request.labels.*.name, 'elliott/')
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.labels.*.name, 'elliott/')
     steps:
       - name: Checkout
         uses: actions/checkout@v3
