@@ -18,5 +18,6 @@ if(LABELS.length > 1){
     console.log(`No labels found that begin with ${BRANCH_NAME}`);
     process.exit(1);
 } else {
+    console.log(LABELS[0])
     process.stdout.write(`::set-output name=branch::${LABELS[0]}`)
 }
