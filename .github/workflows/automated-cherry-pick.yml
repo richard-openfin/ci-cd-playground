@@ -12,8 +12,6 @@ env:
     BRANCH_NAME: github.event.pull_request.labels.*.name
 
 jobs:
-  get_label:
-   
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
