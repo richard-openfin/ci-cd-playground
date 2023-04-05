@@ -12,15 +12,22 @@ env:
     BRANCH_NAME: github.event.pull_request.labels.*.name
 
 jobs:
+  get_label:
+   
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.labels[0].name, 'elliott/')
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Get Release Branch Name
+        id: get_label
+        run: node ./common/getReleaseBranch.js ${{ github.event.pull_request.labels.*.name }} 'elliott/'
+      
       - name: Cherry pick commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
-          branch: ${{ github.event.pull_request.labels[0].name }}
+          branch: ${{ steps.get_label.outputs.branch }}
 #comment for tests
