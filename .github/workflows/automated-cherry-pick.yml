@@ -19,11 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.pull_request.merged
     steps:
-    
       - name: Get Release Branch Name
         id: get_label
-        run: node getReleaseBranch ${{ github.event.pull_request.labels.*.name }} 'elliott/'
-        
+        run: node ./common/getBranchName ${{ github.event.pull_request.labels.*.name }} 'elliott/'
+
       - name: Checkout
         uses: actions/checkout@v3
       
