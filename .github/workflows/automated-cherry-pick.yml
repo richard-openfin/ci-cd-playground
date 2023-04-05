@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Get Release Branch Name
         id: get_label
-        run: node ./common/getBranchName ${{ github.event.pull_request.labels.*.name }} 'elliott/'
+        run: node ./common/getBranchName.js ${{ github.event.pull_request.labels.*.name }} 'elliott/'
 
       - name: Checkout
         uses: actions/checkout@v3
