@@ -27,10 +27,13 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-        
+
       - name: Get Release Branch Name
         id: get_label
         run: node ./common/getBranchName.js ${{ github.event.pull_request.labels.*.name }} 'elliott/'
+
+      - name: Echo
+        run: echo "${{ steps.get_label.outputs.branch }}"
 
       - name: Checkout
         uses: actions/checkout@v3
