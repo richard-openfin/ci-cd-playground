@@ -9,10 +9,7 @@ const labelsArray = LABELS.split(',');
 
 console.log(labelsArray)
 
-const filteredArray = labelsArray.filter((name) => {
-    console.log('name', name, 'branch name', BRANCH_NAME)
-    name.startsWith(BRANCH_NAME)
-})
+const filteredArray = labelsArray.filter(labelName => labelName.startsWith(BRANCH_NAME))
 
 console.log(filteredArray)
 
