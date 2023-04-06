@@ -35,13 +35,7 @@ jobs:
         id: get_label
         run: node ./common/getBranchName.js ${{ join(github.event.pull_request.labels.*.name, ',') }} 'elliott/'
 
-      - name: Echo
-        run: echo "${{ env.BRANCH }}"
-        # run: echo 'this is $BRANCH'
-
       - name: Cherry pick commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
-          # branch: ${{ env.branch }}
-          branch: ${{ env.BRANCH }}
-#comment for testss
+          branch: ${{ steps.get_label.outputs.branch }}
