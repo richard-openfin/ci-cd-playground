@@ -37,7 +37,7 @@ jobs:
 
       - name: Echo
         # run: echo "${{ steps.get_label.outputs.branch }}"
-        run: echo ${{ env.BRANCH }}
+        run: echo 'this is $BRANCH'
 
       - name: Cherry pick commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
