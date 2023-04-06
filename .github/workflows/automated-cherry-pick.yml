@@ -33,7 +33,7 @@ jobs:
 
       - name: Get Release Branch Name
         id: get_label
-        run: node ./common/getBranchName.js ${{ github.event.pull_request.labels.*.name }} 'elliott/'
+        run: node ./common/getBranchName.js ${{ toJSON(github.event.pull_request.labels.*.name) }} 'elliott/'
 
       - name: Echo
         run: echo "${{ steps.get_label.outputs.branch }}"
