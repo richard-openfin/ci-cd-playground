@@ -5,7 +5,7 @@ const [LABELS, BRANCH_NAME, ...args] = process.argv.slice(2);
 console.log('Labels: ', LABELS, 'BRANCH NAME: ', BRANCH_NAME)
 console.log(LABELS[0])
 
-const labelsArray = LABELS.split(', ');
+const labelsArray = LABELS.split(',');
 
 labelsArray.filter((name) => {
     name.startsWith(BRANCH_NAME)
