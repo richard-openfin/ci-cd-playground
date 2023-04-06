@@ -28,5 +28,5 @@ if(filteredArray.length > 1){
     console.log(filteredArray[0])
     // process.stdout.write(`::set-output name=branch::${filteredArray[0]}`)
     // process.stdout.write(`"branch=${filteredArray[0]}" >> $GITHUB_OUTPUT`)
-    process.env.BRANCH = filteredArray[0];
+    process.env.branch = filteredArray[0];
 }
