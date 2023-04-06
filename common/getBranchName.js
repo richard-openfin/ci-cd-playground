@@ -7,22 +7,26 @@ console.log(LABELS[0])
 
 const labelsArray = LABELS.split(',');
 
-labelsArray.filter((name) => {
+console.log(labelsArray)
+
+const filteredArray = labelsArray.filter((name) => {
     name.startsWith(BRANCH_NAME)
 })
+
+console.log(filteredArray)
 
 if (args.length > 0) {
     console.log('This script only requires 2 arguments.');
     process.exit(1);
 };
 
-if(labelsArray.length > 1){
+if(filteredArray.length > 1){
     console.log(`There can only be 1 branch that begins with ${BRANCH_NAME}`);
     process.exit(1);
-} else if(labelsArray.length < 1){
+} else if(filteredArray.length < 1){
     console.log(`No labels found that begin with ${BRANCH_NAME}`);
     process.exit(1);
 } else {
-    console.log(labelsArray[0])
-    process.stdout.write(`::set-output name=branch::${labelsArray[0]}`)
+    console.log(filteredArray[0])
+    process.stdout.write(`::set-output name=branch::${filteredArray[0]}`)
 }
