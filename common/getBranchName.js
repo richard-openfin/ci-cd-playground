@@ -2,6 +2,8 @@ console.log(process.argv)
 
 const [LABELS, BRANCH_NAME, ...args] = process.argv.slice(2);
 
+console.log('Labels: ', LABELS, 'BRANCH NAME: ', BRANCH_NAME)
+
 LABELS.filter((name) => {
     name.startsWith(BRANCH_NAME)
 })
