@@ -28,9 +28,9 @@ jobs:
           # GITHUB_REF (when running on a branch) follows the following format:
           # refs/heads/BRANCH-NAME. This extracts the BRANCH-NAME from GITHUB_REF
            BRANCH_NAME=${GITHUB_REF#refs/heads/}
-           if [ ${{ github.event.inputs.beta-release }} == 'true' ] then
+           if [ ${{ github.event.inputs.beta-release }} == 'true' ]; then
             echo "Beta release is true, continuing to check for release branch"
-            if [[ "$BRANCH_NAME" != release/* ]] then 
+            if [[ "$BRANCH_NAME" != release/* ]]; then 
              echo "Error: The current branch ($BRANCH_NAME) is not a release branch (release/*)"
              exit 1
             else
