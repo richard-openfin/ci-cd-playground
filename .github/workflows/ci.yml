@@ -41,6 +41,7 @@ jobs:
   
   next-job:
     name: Next Job...
+    runs-on: ubuntu-latest
     steps:
       - name: Step 1
         run: echo "Next job executed"
