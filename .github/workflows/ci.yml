@@ -41,4 +41,6 @@ jobs:
   
   next-job:
     name: Next Job...
-    run: echo "Next job executed"
+    steps:
+      - name: Step 1
+      - run: echo "Next job executed"
