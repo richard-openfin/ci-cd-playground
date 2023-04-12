@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IS_RELEASE_BRANCH: startsWith(github.ref, 'refs/heads/release')
-      IS_MAIN_BRANCH: (github.ref == 'main') == true
+      IS_MAIN_BRANCH: (github.ref == 'main')
 
     steps:
     - name: Check Conditionals (prev)
@@ -31,7 +31,7 @@ jobs:
         echo "${{ env.IS_RELEASE_BRANCH == 'true' }} ${{ env.IS_MAIN_BRANCH == 'false' }}"
 
     - name: Check Conditionals (new / should run)
-      if: ${{ env.IS_MAIN_BRANCH }}
+      if: ${{ env.IS_MAIN_BRANCH }} == true
       run: |
         echo "${{ env.IS_MAIN_BRANCH }}"
         echo "${{ env.IS_RELEASE_BRANCH == 'true' }} ${{ env.IS_MAIN_BRANCH == 'false' }}"
