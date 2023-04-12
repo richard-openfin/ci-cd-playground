@@ -1,0 +1,28 @@
+name: Test env variables and conditionals
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: ['closed']
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      IS_RELEASE_BRANCH: startsWith(github.ref, 'refs/heads/release')
+      IS_MAIN_BRANCH: (github.ref == 'refs/heads/main' && github.head_ref == 0)
+
+    steps:
+    - name: Check Conditionals (prev)
+      if: ${{ IS_RELEASE_BRANCH }} || ${{ IS_MAIN_BRANCH }}
+      run: |
+        echo "${{ IS_RELEASE_BRANCH }} ${{ IS_MAIN_BRANCH }}"
+
+    steps:
+    - name: Check Conditionals (new)
+      if: ${{ IS_RELEASE_BRANCH == 'true' }} && ${{ IS_MAIN_BRANCH == 'false' }}
+      run: |
+        echo "${{ IS_RELEASE_BRANCH == 'true' }} ${{ IS_MAIN_BRANCH == 'false' }}"
+
