@@ -16,12 +16,12 @@ jobs:
 
     steps:
     - name: Check Conditionals (prev)
-      if: ${{ IS_RELEASE_BRANCH }} || ${{ IS_MAIN_BRANCH }}
+      if: ${{ env.IS_RELEASE_BRANCH }} || ${{ env.IS_MAIN_BRANCH }}
       run: |
-        echo "${{ IS_RELEASE_BRANCH }} ${{ IS_MAIN_BRANCH }}"
+        echo "${{ env.IS_RELEASE_BRANCH }} ${{ env.IS_MAIN_BRANCH }}"
 
     - name: Check Conditionals (new)
-      if: ${{ IS_RELEASE_BRANCH == 'true' }} && ${{ IS_MAIN_BRANCH == 'false' }}
+      if: ${{ env.IS_RELEASE_BRANCH == 'true' }} && ${{ env.IS_MAIN_BRANCH == 'false' }}
       run: |
-        echo "${{ IS_RELEASE_BRANCH == 'true' }} ${{ IS_MAIN_BRANCH == 'false' }}"
+        echo "${{ env.IS_RELEASE_BRANCH == 'true' }} ${{ env.IS_MAIN_BRANCH == 'false' }}"
 
