@@ -31,7 +31,7 @@ jobs:
         echo "${{ env.IS_RELEASE_BRANCH == 'true' }} ${{ env.IS_MAIN_BRANCH == 'false' }}"
 
     - name: Check Conditionals (new / should run)
-      if: ${{ env.IS_MAIN_BRANCH == 'true' }}
+      if: ${{ env.IS_MAIN_BRANCH == true }}
       run: |
         echo "${{ github.ref }}"
         echo "${{ github.head_ref }}"
