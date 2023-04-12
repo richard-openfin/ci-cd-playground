@@ -33,6 +33,8 @@ jobs:
     - name: Check Conditionals (new / should run)
       if: ${{ env.IS_MAIN_BRANCH }} == true
       run: |
-        echo "${{ env.IS_MAIN_BRANCH }}"
-        echo "${{ env.IS_RELEASE_BRANCH == 'true' }} ${{ env.IS_MAIN_BRANCH == 'false' }}"
+        if [[ ${{ env.IS_MAIN_BRANCH }} == true ]]; then
+          echo 'It is the main branch'
+        else
+          echo 'It is not the main branch or there was an error'
 
