@@ -20,7 +20,6 @@ jobs:
       run: |
         echo "${{ IS_RELEASE_BRANCH }} ${{ IS_MAIN_BRANCH }}"
 
-    steps:
     - name: Check Conditionals (new)
       if: ${{ IS_RELEASE_BRANCH == 'true' }} && ${{ IS_MAIN_BRANCH == 'false' }}
       run: |
