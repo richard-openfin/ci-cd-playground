@@ -26,12 +26,12 @@ jobs:
         echo "Check is if branch is main ${{env.IS_MAIN_BRANCH == 'true'}}"
 
     - name: Check Conditionals (new / should run)
-      if: ${{ env.IS_MAIN_BRANCH }} == true
+      if: $env.IS_MAIN_BRANCH == true
       run: |
           echo "Check is if branch is main ${{ env.IS_MAIN_BRANCH }} == true"
 
     - name: Check Conditionals (new / should not run - wrong branch)
-      if: startsWith(github.ref, 'refs/heads/release') == true
+      if: $env.IS_RELEASE_BRANCH == true
       run: |
           echo "Check is if branch is release ${{ env.IS_RELEASE_BRANCH }} == true"
 
