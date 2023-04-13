@@ -37,16 +37,16 @@ jobs:
 
 
 # A Solution
-    - name: Evaluate expression and set variable
-        run: |
-          if [[ "${{ github.ref }}" == "refs/heads/release"* ]]; then
-            echo "::set-env name=IS_RELEASE_BRANCH::true"
-          else
-            echo "::set-env name=IS_RELEASE_BRANCH::false"
-          fi
+    # - name: Evaluate expression and set variable
+    #     run: |
+    #       if [[ "${{ github.ref }}" == "refs/heads/release"* ]]; then
+    #         echo "::set-env name=IS_RELEASE_BRANCH::true"
+    #       else
+    #         echo "::set-env name=IS_RELEASE_BRANCH::false"
+    #       fi
 
-    - name: Check Conditionals
-        if: env.IS_RELEASE_BRANCH == 'true'
-        run: |
-          echo "Check if branch is release"      
+    # - name: Check Conditionals
+    #     if: env.IS_RELEASE_BRANCH == 'true'
+    #     run: |
+    #       echo "Check if branch is release"      
 
