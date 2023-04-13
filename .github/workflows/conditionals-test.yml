@@ -15,26 +15,18 @@ jobs:
       IS_MAIN_BRANCH: (github.ref == 'main')
 
     steps:
-    - name: Check Conditionals (prev)
-      if: ${{ env.IS_RELEASE_BRANCH }} || ${{ env.IS_MAIN_BRANCH }}
+    - name: Check Conditionals (prev / should not run but will run)
+      if: ${{ env.IS_RELEASE_BRANCH }} && ${{ env.IS_MAIN_BRANCH }}
       run: |
-        echo "${{ env.IS_RELEASE_BRANCH }} ${{ env.IS_MAIN_BRANCH }}"
-        echo "${{ github.ref }}"
-        echo "${{ github.ref == 'main' }}"
-        echo "${{ env.IS_MAIN_BRANCH == true }}"
+        echo "Check is if branch is release and branch is main"
 
-    - name: Check Conditionals (new)
-      if: ${{ env.IS_RELEASE_BRANCH == 'true' }}
+    - name: Check Conditionals (new / should not run)
+      if: ${{ env.IS_MAIN_BRANCH == 'true' }}
       run: |
-        echo "${{ github.ref }}"
-        echo "${{ github.head_ref }}"
-        echo "${{ env.IS_RELEASE_BRANCH == 'true' }} ${{ env.IS_MAIN_BRANCH == 'false' }}"
+        echo "Check is if branch is main ${{env.IS_MAIN_BRANCH == 'true'}}"
 
     - name: Check Conditionals (new / should run)
       if: ${{ env.IS_MAIN_BRANCH }} == true
       run: |
-        if [[ ${{ env.IS_MAIN_BRANCH }} == true ]]; then
-          echo 'It is the main branch'
-        else
-          echo 'It is not the main branch or there was an error'
+          echo "Check is if branch is main ${{ env.IS_MAIN_BRANCH }} == true"
 
