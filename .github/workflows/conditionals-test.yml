@@ -33,7 +33,7 @@ jobs:
     - name: Check Conditionals (new / should run - but won't)
       if: ${{ env.IS_MAIN_BRANCH == 'true'}}
       run: |
-          echo "Check is if branch is main ${{ env.IS_MAIN_BRANCH = 'true' }}""
+          echo "Check is if branch is main ${{ env.IS_MAIN_BRANCH == 'true' }}""
 
 
 # A Solution
