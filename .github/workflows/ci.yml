@@ -1,0 +1,48 @@
+name: CI/CD
+
+on:
+  repository_dispatch:
+    types: ['deploy-notifications-beta']
+  workflow_dispatch:
+    inputs:
+      beta-release:
+        description: 'Check to build and deploy a beta release'
+        type: boolean
+        required: true
+        default: false
+  push:
+    branches: [main, release/*, hotfix/**]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    types: [opened, reopened]
+    branches: [main, release/*, feature/**, hotfix/**]
+
+jobs:
+  check-branch:
+    name: Check Branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for release branch
+        run: |
+          # GITHUB_REF (when running on a branch) follows the following format:
+          # refs/heads/BRANCH-NAME. This extracts the BRANCH-NAME from GITHUB_REF
+           BRANCH_NAME=${GITHUB_REF#refs/heads/}
+           if [ ${{ github.event.inputs.beta-release }} == 'true' ]; then
+            echo "Beta release is true, continuing to check for release branch"
+            if [[ "$BRANCH_NAME" != release/* ]]; then 
+             echo "Error: The current branch ($BRANCH_NAME) is not a release branch (release/*)"
+             exit 1
+            else
+             echo "The current branch ($BRANCH_NAME) is a release branch."
+            fi
+           else
+            echo "Beta release is false, continuing to next job"
+          fi
+  
+  next-job:
+    name: Next Job...
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Next job executed"

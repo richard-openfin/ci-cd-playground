@@ -7,19 +7,35 @@ on:
     types: ['closed']
 
 env:
-  IS_PR_MERGED: github.event_name == 'pull_request' && github.event.pull_request.merged
-  IS_PR_LABELED_RELEASE: startsWith(github.event.pull_request.labels.*.name, 'release/')
+    IS_PR_MERGED: github.event_name == 'pull_request' && github.event.pull_request.merged
+    IS_PR_LABELED_ELLIOTT: startsWith(github.event.pull_request.labels.*.name, 'elliott/')
+    BRANCH_NAME: github.event.pull_request.labels.*.name
 
 jobs:
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    if: ${{ IS_PR_CLOSED && IS_PR_LABELED_RELEASE }}
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3
+        with:
+            cache: 'npm'
+            node-version: 16
+            always-auth: true
+            registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Get Release Branch Name
+        id: get_label
+        run: node ./common/getBranchName.js ${{ join(github.event.pull_request.labels.*.name, ',') }} 'elliott/'
+
       - name: Cherry pick commit
         uses: carloscastrojumo/github-cherry-pick-action@v1.0.9
         with:
-          - branch: github.event.pull_request.labels.*.name
-          # please work
+          branch: ${{ steps.get_label.outputs.branch }}
