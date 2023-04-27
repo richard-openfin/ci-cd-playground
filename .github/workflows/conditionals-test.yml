@@ -1,0 +1,52 @@
+name: Test env variables and conditionals
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: ['closed']
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      IS_MAIN_BRANCH: (github.ref == 'main')
+      IS_FAKE_BRANCH: startsWith(github.ref, 'refs/heads/fake')
+
+    steps:
+    - name: Check Conditionals (prev / should not run but will run)
+      if: ${{ env.IS_FAKE_BRANCH }} && ${{ env.IS_MAIN_BRANCH }}
+      run: |
+        echo "Check is if branch is fake and branch is main"
+
+    - name: Check Conditionals (new / should run)
+      if: (github.ref == 'main') == true
+      run: |
+          echo "Check is if branch is main ${{ env.IS_MAIN_BRANCH }} == true"
+
+    - name: Check Conditionals (new / should not run - wrong branch)
+      if: ${{ env.IS_FAKE_BRANCH }} == true
+      run: |
+          echo "Check is if branch is fake ${{ env.IS_FAKE_BRANCH }} == true"
+
+    - name: Check Conditionals (new / should run - but won't)
+      if: ${{ env.IS_MAIN_BRANCH == 'true'}}
+      run: |
+          echo "Check is if branch is main ${{ env.IS_MAIN_BRANCH == 'true' }}""
+
+
+# A Solution
+    # - name: Evaluate expression and set variable
+    #     run: |
+    #       if [[ "${{ github.ref }}" == "refs/heads/release"* ]]; then
+    #         echo "::set-env name=IS_RELEASE_BRANCH::true"
+    #       else
+    #         echo "::set-env name=IS_RELEASE_BRANCH::false"
+    #       fi
+
+    # - name: Check Conditionals
+    #     if: env.IS_RELEASE_BRANCH == 'true'
+    #     run: |
+    #       echo "Check if branch is release"      
+
