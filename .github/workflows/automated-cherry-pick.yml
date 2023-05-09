@@ -5,6 +5,10 @@ on:
     branches:
       - main
     types: ['closed']
+  workflow_dispatch:
+    inputs:
+      cherry-pick:
+        description: 'Create a cherry pick onto release branch. Please be sure to restore your branch if it was deleted.'
 
 env:
     IS_PR_MERGED: github.event_name == 'pull_request' && github.event.pull_request.merged
@@ -15,7 +19,7 @@ jobs:
   cherry_pick:
     name: Cherry Pick
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event.pull_request.merged
+    if: ${{github.event_name == 'pull_request' && github.event.pull_request.merged}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
