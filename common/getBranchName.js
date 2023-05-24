@@ -19,4 +19,4 @@ if(filteredArray.length > 1){
     process.stdout.write(`::set-output name=branch::${filteredArray[0]}`)
 }
 
-// comment for testing!!!
+// comment for testing!!!!!!
